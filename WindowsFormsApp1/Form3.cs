@@ -113,6 +113,7 @@ namespace WindowsFormsApp1
             this.buttonSave.Size = new System.Drawing.Size(300, 100);
             this.buttonSave.TabIndex = 7;
             this.buttonSave.Text = "Save this brilliant!";
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
 
             // Form3
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);

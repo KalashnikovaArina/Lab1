@@ -7,24 +7,20 @@
       "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|c:\\users\\user\\desktop\\\u0443(\u0447)\u0451\u0431\u0430\\lab1_1\\windowsformsapp1\\form4.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form4.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|c:\\users\\user\\desktop\\\u0443(\u0447)\u0451\u0431\u0430\\lab1_1\\windowsformsapp1\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\histogramform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:histogramform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C5B26D0A-A770-4B47-B562-46A498644658}|WindowsFormsApp1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,58 +30,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form3.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form3.cs",
-              "RelativeDocumentMoniker": "Form3.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form3.cs",
-              "RelativeToolTip": "Form3.cs",
-              "ViewState": "AQIAAEAAAAAAAAAAAAAkwB8AAAAAAAAA",
+              "DocumentIndex": 1,
+              "Title": "Form4.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form4.Designer.cs",
+              "RelativeDocumentMoniker": "Form4.Designer.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form4.Designer.cs",
+              "RelativeToolTip": "Form4.Designer.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAYwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T12:08:30.097Z",
+              "WhenOpened": "2024-09-18T12:23:01.638Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form4.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form4.cs",
+              "RelativeDocumentMoniker": "Form4.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form4.cs",
+              "RelativeToolTip": "Form4.cs",
+              "ViewState": "AQIAAGQAAAAAAAAAAAAkwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-18T12:18:05.126Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "histogramForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\histogramForm.cs",
-              "RelativeDocumentMoniker": "histogramForm.cs",
-              "ToolTip": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp1\\histogramForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp1\\histogramForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T13:20:12.111Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form2.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form2.cs",
-              "RelativeDocumentMoniker": "Form2.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form2.cs",
-              "RelativeToolTip": "Form2.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T11:40:15.661Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form2.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form2.cs",
-              "RelativeDocumentMoniker": "Form2.cs",
-              "ToolTip": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp1\\Form2.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp1\\Form2.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T11:36:03.015Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -98,15 +73,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "RelativeToolTip": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentIndex": 0,
+              "Title": "Form3.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form3.cs",
+              "RelativeDocumentMoniker": "Form3.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form3.cs",
+              "RelativeToolTip": "Form3.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEABAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T11:30:22.637Z",
-              "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+              "WhenOpened": "2024-09-18T12:08:30.097Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form2.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form2.cs",
+              "RelativeDocumentMoniker": "Form2.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\\u0423(\u0447)\u0451\u0431\u0430\\Lab1_1\\WindowsFormsApp1\\Form2.cs",
+              "RelativeToolTip": "Form2.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAADwv4cAAAA+AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T11:40:15.661Z",
+              "EditorCaption": ""
             }
           ]
         }
