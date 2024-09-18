@@ -28,33 +28,27 @@ namespace WindowsFormsApp1
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                // Загружаем изображение в pictureBox1
                 pictureBox1.Image = System.Drawing.Image.FromFile(openFileDialog1.FileName);
                 pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
 
                 Bitmap originalImage = new Bitmap(openFileDialog1.FileName);
 
-                // Преобразуем изображение в оттенки серого двумя методами
                 Bitmap grayImage1 = ConvertToGrayScale1(originalImage);
                 Bitmap grayImage2 = ConvertToGrayScale2(originalImage);
 
-                // Отображаем изображения в pictureBox2 и pictureBox3
                 pictureBox2.Image = grayImage1;
                 pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
 
                 pictureBox3.Image = grayImage2;
                 pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
 
-                // Вычисляем разность между двумя изображениями
                 Bitmap diffImage = CalculateDifference(grayImage1, grayImage2);
                 pictureBox4.Image = diffImage;
                 pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
 
-                // Построение гистограмм интенсивности для изображений
                 long[] histogramGray1 = CalculateHistogram(grayImage1);
                 long[] histogramGray2 = CalculateHistogram(grayImage2);
 
-                // Отображаем гистограммы в новой форме
                 DisplayHistograms(histogramGray1, histogramGray2);
             }
         }
@@ -64,31 +58,19 @@ namespace WindowsFormsApp1
         {
             var histogramForm = new Form();
             histogramForm.Text = "Гистограммы";
-
-            // Создаем компоненты Chart
             var chart1 = new Chart();
             var chart2 = new Chart();
-
-            // Устанавливаем области для графиков
             chart1.ChartAreas.Add(new ChartArea("Gray1"));
             chart2.ChartAreas.Add(new ChartArea("Gray2"));
-
-            // Добавляем серии данных
             chart1.Series.Add(new Series("Gray1"));
             chart2.Series.Add(new Series("Gray2"));
-
             chart1.Series["Gray1"].ChartType = SeriesChartType.Column;
             chart2.Series["Gray2"].ChartType = SeriesChartType.Column;
-
-            // Привязываем данные
             chart1.Series["Gray1"].Points.DataBindY(histogram1);
             chart2.Series["Gray2"].Points.DataBindY(histogram2);
-
-            // Устанавливаем подписи осей
             chart1.ChartAreas[0].AxisY.Title = "Количество пикселей";
             chart2.ChartAreas[0].AxisY.Title = "Количество пикселей";
 
-            // Табличная компоновка для гистограмм
             TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel1.Dock = DockStyle.Fill;
             histogramForm.Controls.Add(tableLayoutPanel1);
@@ -115,7 +97,7 @@ namespace WindowsFormsApp1
                 {
                     int intensity = grayImage.GetPixel(x, y).R; // Пиксели одинаковы по R, G и B
                     histogram[intensity]++;
-                }
+                }   
             }
 
             return histogram;
