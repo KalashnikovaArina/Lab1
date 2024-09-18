@@ -23,3 +23,15 @@ D:\Lab1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 D:\Lab1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
 D:\Lab1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
 D:\Lab1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form2.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.histogramForm.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
