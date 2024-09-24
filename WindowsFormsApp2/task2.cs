@@ -23,9 +23,9 @@ namespace WindowsFormsApp2
         private void WindowInitializer()
         {
             // first point
-            this.p_init = new Point(1, 1);
+            this.p_init = new Point(1, 140);
             // second point 
-            this.p_end = new Point(340, 140);
+            this.p_end = new Point(340, 10);
         
             this.pictureBoxHeiz = new PictureBox();
             this.pictureBoxWu = new PictureBox();
@@ -134,7 +134,7 @@ namespace WindowsFormsApp2
             int y;
             int step;
             //check the way of line 
-            if (p_st.Y < p_fin.Y)
+            if (p_st.Y > p_fin.Y)
             {
                 step = -1;
                 y = Math.Abs(dym) + 2;
@@ -227,8 +227,8 @@ namespace WindowsFormsApp2
             //some variables
             double dx = dxm / delta;
             double dy = dym / delta;
-            double y;
             int step;
+            double y;
             if (p_st.Y < p_fin.Y)
             {
                 step = -1;
@@ -244,12 +244,24 @@ namespace WindowsFormsApp2
             {
                 // Последний аргумент — интенсивность в долях единицы
                 bitmap_wu.SetPixel(0, (int)y, Color.FromArgb(0, 0, 0));
-                for (var x = 1; x <= dxm - 1; x++)
+                for (var i = 1; i <= dxm - 1; i++)
                 {
                     double pow = y - (int)y;
-                    bitmap_wu.SetPixel(x, (int)y, Color.FromArgb((int)(pow * 255), (int)(pow * 255), (int)(pow * 255)));
-                    bitmap_wu.SetPixel(x, (int)y + 1, Color.FromArgb((int)((1 - pow) * 255), (int)((1 - pow) * 255), (int)((1 - pow) * 255)));
-                    y += gradient*step;
+                    bitmap_wu.SetPixel(i, (int)y, Color.FromArgb((int)(pow * 255), (int)(pow * 255), (int)(pow * 255)));
+                    bitmap_wu.SetPixel(i, (int)y + 1, Color.FromArgb((int)((1 - pow) * 255), (int)((1 - pow) * 255), (int)((1 - pow) * 255)));
+                    y += gradient * step;
+                }
+            }
+            else
+            {
+                double x = 2;
+                bitmap_wu.SetPixel((int)x, 1, Color.FromArgb(0, 0, 0));
+                for (int i = (int)y; i <= dym - 1; i += step)
+                {
+                    double pow = x - (int)x;
+                    bitmap_wu.SetPixel((int)x, i, Color.FromArgb((int)(pow * 255), (int)(pow * 255), (int)(pow * 255)));
+                    bitmap_wu.SetPixel((int)x + 1, i, Color.FromArgb((int)((1 - pow) * 255), (int)((1 - pow) * 255), (int)((1 - pow) * 255)));
+                    x += 1 / gradient;
                 }
             }
             
