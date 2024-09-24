@@ -46,9 +46,7 @@ namespace WindowsFormsApp1
                 long[] lr = new long[256];
                 long[] lg = new long[256];
                 long[] lb = new long[256];
-                long r = 0;
-                long g = 0;
-                long b = 0;
+          
                 for (int x = 0; x < image2.Width; x++)
                 {
                     for (int y = 0; y < image2.Height; y++)
@@ -58,15 +56,11 @@ namespace WindowsFormsApp1
                         ++lr[pixelColor.R];
                         ++lg[pixelColor.G];
                         ++lb[pixelColor.B];
-                        r += pixelColor.R;
-                        g += pixelColor.G;
-                        b += pixelColor.B;
+                        
                     }
                 }
 
-                //результат выделения каналов rgb
-                label1.Text = "r = " + r / image2.Width / image2.Height + " | g = " + g / image2.Width / image2.Height + " | b = " + b / image2.Width / image2.Height;
-
+              
                 //выделение каналов
                 for (int x = 0; x < image2.Width; x++)
                 {

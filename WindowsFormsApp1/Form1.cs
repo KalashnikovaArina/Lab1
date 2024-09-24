@@ -25,13 +25,13 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form3 newForm = new Form3();
+            Form4 newForm = new Form4();
             newForm.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form4 newForm = new Form4();
+            Form3 newForm = new Form3();
             newForm.Show();
         }
     }
