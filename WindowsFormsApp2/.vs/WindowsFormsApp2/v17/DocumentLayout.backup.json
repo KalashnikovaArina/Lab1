@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{99745041-8E28-4382-A377-4E0EE196E8AA}|WindowsFormsApp2.csproj|c:\\users\\\u0430\u0440\u0438\u043D\u0430\\desktop\\graph_lab1\\lab1\\windowsformsapp2\\task2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{99745041-8E28-4382-A377-4E0EE196E8AA}|WindowsFormsApp2.csproj|solutionrelative:task2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{99745041-8E28-4382-A377-4E0EE196E8AA}|WindowsFormsApp2.csproj|c:\\users\\\u0430\u0440\u0438\u043D\u0430\\desktop\\graph_lab1\\lab1\\windowsformsapp2\\task3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{99745041-8E28-4382-A377-4E0EE196E8AA}|WindowsFormsApp2.csproj|solutionrelative:task3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,19 +39,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "task2.cs",
+              "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\task2.cs",
+              "RelativeDocumentMoniker": "task2.cs",
+              "ToolTip": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\task2.cs",
+              "RelativeToolTip": "task2.cs",
+              "ViewState": "AgIAAMAAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T13:46:48.162Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "task3.cs",
               "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\task3.cs",
               "RelativeDocumentMoniker": "task3.cs",
               "ToolTip": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\task3.cs",
               "RelativeToolTip": "task3.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAwwHUAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-24T06:16:38.182Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "task3.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\task3.cs",
               "RelativeDocumentMoniker": "task3.cs",
@@ -58,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "task1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\task1.cs",
               "RelativeDocumentMoniker": "task1.cs",
@@ -69,7 +86,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -81,7 +98,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Form1.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "DocumentMoniker": "C:\\Users\\\u0410\u0440\u0438\u043D\u0430\\Desktop\\graph_lab1\\Lab1\\WindowsFormsApp2\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",

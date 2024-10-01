@@ -9,6 +9,7 @@ C:\Users\Арина\source\repos\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csp
 C:\Users\Арина\source\repos\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
 C:\Users\Арина\source\repos\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.pdb
 C:\Users\Арина\source\repos\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.task3.resources
+<<<<<<< HEAD
 C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe.config
 C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe
 C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.pdb
@@ -20,3 +21,16 @@ C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\obj\Debug\WindowsFo
 C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.CoreCompileInputs.cache
 C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
 C:\Users\Арина\Desktop\graph_lab1\Lab1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.pdb
+=======
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Form1.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.Properties.Resources.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.task3.resources
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.GenerateResource.cache
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.exe
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.pdb
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe.config
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe
+C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.pdb
+>>>>>>> 81d1e19fac40a6457c490eda616594a391cbfcb5
