@@ -54,6 +54,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(574, 360);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // button1
             // 
@@ -172,6 +173,7 @@
             this.button2.TabIndex = 16;
             this.button2.Text = "Применить";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             // 
             // label3
             // 
