@@ -17,9 +17,19 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1a_Click(object sender, EventArgs e)
         {
-            task1 newForm = new task1();
+            task1a newForm = new task1a();
+            newForm.Show();
+        }
+        private void button1b_Click(object sender, EventArgs e)
+        {
+            task1b newForm = new task1b();
+            newForm.Show();
+        }
+        private void button1c_Click(object sender, EventArgs e)
+        {
+            task1c newForm = new task1c();
             newForm.Show();
         }
 
@@ -33,6 +43,11 @@ namespace WindowsFormsApp2
         {
             task3 newForm = new task3();
             newForm.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
