@@ -52,18 +52,19 @@ namespace WindowsFormsApp3
                     label6.Visible = true;
                     textBox1.Visible = true;
                     textBox2.Visible = true;
-                    Matrix = true;
-                    DrawDot = false;
+                    Draw = true; //разрешаем рисовать
+                    Matrix = true;//преобразование - матричное
+                    DrawDot = false; //разрешаем рисовать только точку
                     break;
                 case "Поворот вокруг заданной точки":
                     label1.Text = str + "; Нарисуйте точку и введите угол поворота";
-                    Draw = true; //разрешаем рисование
+                    Draw = true; 
                     label7.Visible = true;
                     textBox1.Visible = true;
                     textBox2.Visible = true;
                     textBox3.Visible = true;
-                    Matrix = true;
-                    DrawDot = true;
+                    Matrix = true; 
+                    DrawDot = true; 
                     break;
                 case "Поворот вокруг своего центра":
                     label1.Text = str + "; Введите угол поворота";
@@ -79,7 +80,7 @@ namespace WindowsFormsApp3
                     textBox1.Visible = true;
                     textBox2.Visible = true;
                     textBox4.Visible = true;
-                    Draw = true; //разрешаем рисование
+                    Draw = true; 
                     Matrix = true;
                     DrawDot = true;
                     break;
@@ -93,18 +94,22 @@ namespace WindowsFormsApp3
                     break;
                 case "Поиск точки пересечения двух ребер":
                     label1.Text = str + "; Нарисуйте ребро";
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
                     break;
                 case "Проверка принадлежности точки к полигону":
                     label1.Text = "Проверка принадлежности точки к полигону; Нарисуйте точку";
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
                     break;
                 case "Определить положение точки относительно полигона":
                     label1.Text = "Определить положение точки относительно полигона; Нарисуйте точку";
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
                     break;
                 case "Рисовать":
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
                     break;
                 default:
                     break;
@@ -160,6 +165,8 @@ namespace WindowsFormsApp3
                     textBox1.Text = e.X.ToString();
                     textBox2.Text = e.Y.ToString();
                 }
+                //TODO
+                //реализовать случай для разрешения рисования только! отрезка по примеру точки
             }
         }
 
@@ -259,23 +266,23 @@ namespace WindowsFormsApp3
             RealisationTask();
             if (Matrix)
             {
-                List<Point> newprimitiv = new List<Point>();
+                List<Point> newpoligon = new List<Point>();
                 List<Tuple<double, double>> l1 = new List<Tuple<double, double>>();
                 foreach (Tuple<double, double> p in poligon)
                 {
                     double[,] point = new double[,] { { p.Item1, p.Item2, 1.0 } };
                     double[,] res = matrix_multiplication(point, transferalMatrix);
                     l1.Add(Tuple.Create(res[0, 0], res[0, 1]));
-                    newprimitiv.Add(new Point(Convert.ToInt32(Math.Round(res[0, 0])), Convert.ToInt32(Math.Round(res[0, 1]))));
+                    newpoligon.Add(new Point(Convert.ToInt32(Math.Round(res[0, 0])), Convert.ToInt32(Math.Round(res[0, 1]))));
                 }
 
                 ClearPictureBox();
 
                 poligon.Clear();
 
-                Point p1 = newprimitiv.First();
+                Point p1 = newpoligon.First();
                 poligon.Add(Tuple.Create(p1.X * 1.0, p1.Y * 1.0));
-                foreach (Point c in newprimitiv)
+                foreach (Point c in newpoligon)
                 {
                     if (c != p1)
                     {

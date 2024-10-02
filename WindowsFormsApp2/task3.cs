@@ -118,7 +118,7 @@ namespace WindowsFormsApp2
                 {
                     // Интерполяция цвета между color1 и color2
                     // Используем cross_x1 и cross_x2 для определения фактора
-                    float colorFactor = (float)(top_y - y0) / (y1 - y0); // Верно: используем расстояние по Y от y0 до y1
+                    float colorFactor = (float)(top_y - y0) / (y1 - y0); // используем расстояние по Y от y0 до y1
                     Color interpolatedColor = InterpolateColor(colors[0], colors[1], colorFactor);
                     g.FillRectangle(new SolidBrush(interpolatedColor), cross_x2, top_y, cross_x1 - cross_x2, 1);
 
