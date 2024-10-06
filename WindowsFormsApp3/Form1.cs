@@ -188,43 +188,90 @@ namespace WindowsFormsApp3
         private void RealisationTask()
         {
             string str = comboBox1.SelectedItem.ToString();
+            double num1;
+            double num2;
             switch (str)
             {
                 case "Смещение":
-                    double tX = System.Convert.ToDouble(textBox1.Text);
-                    double tY = System.Convert.ToDouble(textBox2.Text);
-                    transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { tX, tY, 1.0 } };
+                    if (!(double.TryParse(textBox1.Text, out num1) && double.TryParse(textBox2.Text, out num2)))
+                    {
+                        label1.Text = "Введены неверные числа!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Смещение";
+                        double tX = System.Convert.ToDouble(textBox1.Text);
+                        double tY = System.Convert.ToDouble(textBox2.Text);
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { tX, tY, 1.0 } };
+                    }    
                     break;
+                    
                 case "Поворот вокруг заданной точки":
                     double c = System.Convert.ToDouble(textBox1.Text);
                     double d = System.Convert.ToDouble(textBox2.Text);
-                    double p = System.Convert.ToDouble(textBox3.Text) * Math.PI / 180;
-                    double cos = Math.Cos(p);
-                    double sin = Math.Sin(p);
-                    transferalMatrix = new double[,] { {cos, sin, 0}, {-sin, cos, 0},
+                    if (!double.TryParse(textBox3.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Поворот вокруг заданной точки";
+                        double p = System.Convert.ToDouble(textBox3.Text) * Math.PI / 180;
+                        double cos = Math.Cos(p);
+                        double sin = Math.Sin(p);
+                        transferalMatrix = new double[,] { {cos, sin, 0}, {-sin, cos, 0},
                         {cos*(-c)+d*sin+c, (-c)*sin-d*cos+d, 1}};
+                    }    
                     break;
                 case "Поворот вокруг своего центра":
-                    double p1 = System.Convert.ToDouble(textBox3.Text) * Math.PI / 180;
-                    double cos1 = Math.Cos(p1);
-                    double sin1 = Math.Sin(p1);
-                    double a = 0, b = 0;
-                    find_center(ref a, ref b);
-                    transferalMatrix = new double[,] { {cos1, sin1, 0}, {-sin1, cos1, 0},
+                    if (!double.TryParse(textBox3.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Поворот вокруг своего центра";
+                        double p1 = System.Convert.ToDouble(textBox3.Text) * Math.PI / 180;
+                        double cos1 = Math.Cos(p1);
+                        double sin1 = Math.Sin(p1);
+                        double a = 0, b = 0;
+                        find_center(ref a, ref b);
+                        transferalMatrix = new double[,] { {cos1, sin1, 0}, {-sin1, cos1, 0},
                         {cos1*(-a)+b*sin1+a, (-a)*sin1-b*cos1+b, 1}};
+                    }
                     break;
                 case "Масштабирование относительно заданной точки": //доделать!!!!
-                    double cm1 = System.Convert.ToDouble(textBox4.Text); 
-                    double c1 = System.Convert.ToDouble(textBox1.Text);
-                    double d1 = System.Convert.ToDouble(textBox2.Text);
-                    transferalMatrix = new double[3, 3] { { cm1, 0, 0 }, { 0, cm1, 0 }, { (1 - cm1) * c1, (1 - cm1) * d1, 1 } };
+                    if (!double.TryParse(textBox4.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Масштабирование относительно заданной точки";
+                        double cm1 = System.Convert.ToDouble(textBox4.Text);
+                        double c1 = System.Convert.ToDouble(textBox1.Text);
+                        double d1 = System.Convert.ToDouble(textBox2.Text);
+                        transferalMatrix = new double[3, 3] { { cm1, 0, 0 }, { 0, cm1, 0 }, { (1 - cm1) * c1, (1 - cm1) * d1, 1 } };
+                    }
                     break;
                 case "Масштабирование относительно своего центра":
-                    double cm = System.Convert.ToDouble(textBox4.Text);
-                    double a1 = 0, b1 = 0;
-                    find_center(ref a1, ref b1);
-                    transferalMatrix = new double[3, 3] { { cm, 0, 0 }, { 0, cm, 0 }, { (1 - cm) * a1, (1 - cm) * b1, 1 } };
-                    
+                    if (!double.TryParse(textBox4.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Масштабирование относительно своего центра";
+                        double cm = System.Convert.ToDouble(textBox4.Text);
+                        double a1 = 0, b1 = 0;
+                        find_center(ref a1, ref b1);
+                        transferalMatrix = new double[3, 3] { { cm, 0, 0 }, { 0, cm, 0 }, { (1 - cm) * a1, (1 - cm) * b1, 1 } };
+                    }
                     break;
                 case "Поиск точки пересечения двух ребер":
                     
@@ -264,7 +311,7 @@ namespace WindowsFormsApp3
         private void button2_Click(object sender, EventArgs e)
         {
             RealisationTask();
-            if (Matrix)
+            if (Matrix && poligon.Count() != 0)
             {
                 List<Point> newpoligon = new List<Point>();
                 List<Tuple<double, double>> l1 = new List<Tuple<double, double>>();
@@ -309,6 +356,7 @@ namespace WindowsFormsApp3
             poligon.Clear();
             label5.Text = "Выберите действие";
             comboBox1.SelectedItem = "Рисовать";
+            button2.Visible = false;
         }
     }
 }
