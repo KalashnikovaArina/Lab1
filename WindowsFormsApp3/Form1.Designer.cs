@@ -64,6 +64,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "Очистить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -78,6 +79,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
+            "Рисовать",
             "Смещение",
             "Поворот вокруг заданной точки",
             "Поворот вокруг своего центра",
@@ -174,6 +176,7 @@
             this.button2.Text = "Применить";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label3
             // 

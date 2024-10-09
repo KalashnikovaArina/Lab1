@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace WindowsFormsApp3
 {
     public partial class Form1 : Form
     {
         Bitmap bmp;
-        List<Tuple<double, double>> primitiv = new List<Tuple<double, double>>(); //список точек для полигона
+        List<Tuple<double, double>> poligon = new List<Tuple<double, double>>(); //список точек для полигона
         List<Point> list = new List<Point>();
-        bool Draw; //допустимо ли рисовать сейчас на picturebox
-
+        bool Draw = true; //допустимо ли рисовать сейчас на picturebox
+        bool Matrix; //преобразование с матрицей(true) или без(false). Используется для кнопки "применить"
         double[,] transferalMatrix; //матрица преобразования
 
         public Form1()
@@ -51,40 +52,66 @@ namespace WindowsFormsApp3
                     label6.Visible = true;
                     textBox1.Visible = true;
                     textBox2.Visible = true;
+                    Draw = true; //разрешаем рисовать
+                    Matrix = true;//преобразование - матричное
+                    DrawDot = false; //разрешаем рисовать только точку
                     break;
                 case "Поворот вокруг заданной точки":
                     label1.Text = str + "; Нарисуйте точку и введите угол поворота";
-                    Draw = true; //разрешаем рисование
+                    Draw = true; 
                     label7.Visible = true;
+                    textBox1.Visible = true;
+                    textBox2.Visible = true;
                     textBox3.Visible = true;
+                    Matrix = true; 
+                    DrawDot = true; 
                     break;
                 case "Поворот вокруг своего центра":
                     label1.Text = str + "; Введите угол поворота";
                     label7.Visible = true;
                     textBox3.Visible = true;
+                    Draw = false;
+                    Matrix = true;
+                    DrawDot = false;
                     break;
                 case "Масштабирование относительно заданной точки":
                     label1.Text = str + "; Нарисуйте точку";
                     label3.Visible = true;
+                    textBox1.Visible = true;
+                    textBox2.Visible = true;
                     textBox4.Visible = true;
-                    Draw = true; //разрешаем рисование
+                    Draw = true; 
+                    Matrix = true;
+                    DrawDot = true;
                     break;
                 case "Масштабирование относительно своего центра":
                     label1.Text = str;
                     label3.Visible = true;
                     textBox4.Visible = true;
+                    Matrix = true;
+                    Draw = false;
+                    DrawDot = false;
                     break;
                 case "Поиск точки пересечения двух ребер":
                     label1.Text = str + "; Нарисуйте ребро";
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
                     break;
                 case "Проверка принадлежности точки к полигону":
                     label1.Text = "Проверка принадлежности точки к полигону; Нарисуйте точку";
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
                     break;
                 case "Определить положение точки относительно полигона":
                     label1.Text = "Определить положение точки относительно полигона; Нарисуйте точку";
-                    Draw = true; //разрешаем рисование
+                    Draw = true;
+                    DrawDot = false;
+                    break;
+                case "Рисовать":
+                    Draw = true;
+                    DrawDot = false;
+                    break;
+                default:
                     break;
 
             }
@@ -102,26 +129,44 @@ namespace WindowsFormsApp3
             textBox2.Visible = false;
             textBox3.Visible = false;
             textBox4.Visible = false;
+            textBox1.Text = "";
+            textBox2.Text = "";
             Draw = false;
         }
         //реализация рисования
+        bool DrawDot = false;
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            button2.Visible = true;
-            list.Add(new Point(e.X, e.Y));
-            primitiv.Add(Tuple.Create(e.X * 1.0, e.Y * 1.0));
-            Point start = list.First();
-
-            foreach (var p in list)
+            if (Draw)
             {
-                var pen = new Pen(Color.Black, 1);
-                var g = Graphics.FromImage(pictureBox1.Image);
-                g.DrawLine(pen, start, p);
-                pen.Dispose();
-                g.Dispose();
-                pictureBox1.Image = pictureBox1.Image;
+                button2.Visible = true;
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y, Color.Black);// рисуют точку
+                pictureBox1.Image = pictureBox1.Image;// 
+               
+                if (!DrawDot) 
+                {
+                    list.Add(new Point(e.X, e.Y));
+                    poligon.Add(Tuple.Create(e.X * 1.0, e.Y * 1.0));
+                    Point start = list.First();
+                    foreach (var p in list)
+                    {
+                        var pen = new Pen(Color.Black, 1);
+                        var g = Graphics.FromImage(pictureBox1.Image);
+                        g.DrawLine(pen, start, p);
+                        pen.Dispose();
+                        g.Dispose();
+                        pictureBox1.Image = pictureBox1.Image;
 
-                start = p;
+                        start = p;
+                    }
+                }
+                else //на случай когда нужно нарисовать только точку(по заданию)
+                {
+                    textBox1.Text = e.X.ToString();
+                    textBox2.Text = e.Y.ToString();
+                }
+                //TODO
+                //реализовать случай для разрешения рисования только! отрезка по примеру точки
             }
         }
 
@@ -140,5 +185,178 @@ namespace WindowsFormsApp3
             return res;
         }
 
+        private void RealisationTask()
+        {
+            string str = comboBox1.SelectedItem.ToString();
+            double num1;
+            double num2;
+            switch (str)
+            {
+                case "Смещение":
+                    if (!(double.TryParse(textBox1.Text, out num1) && double.TryParse(textBox2.Text, out num2)))
+                    {
+                        label1.Text = "Введены неверные числа!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Смещение";
+                        double tX = System.Convert.ToDouble(textBox1.Text);
+                        double tY = System.Convert.ToDouble(textBox2.Text);
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { tX, tY, 1.0 } };
+                    }    
+                    break;
+                    
+                case "Поворот вокруг заданной точки":
+                    double c = System.Convert.ToDouble(textBox1.Text);
+                    double d = System.Convert.ToDouble(textBox2.Text);
+                    if (!double.TryParse(textBox3.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Поворот вокруг заданной точки";
+                        double p = System.Convert.ToDouble(textBox3.Text) * Math.PI / 180;
+                        double cos = Math.Cos(p);
+                        double sin = Math.Sin(p);
+                        transferalMatrix = new double[,] { {cos, sin, 0}, {-sin, cos, 0},
+                        {cos*(-c)+d*sin+c, (-c)*sin-d*cos+d, 1}};
+                    }    
+                    break;
+                case "Поворот вокруг своего центра":
+                    if (!double.TryParse(textBox3.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Поворот вокруг своего центра";
+                        double p1 = System.Convert.ToDouble(textBox3.Text) * Math.PI / 180;
+                        double cos1 = Math.Cos(p1);
+                        double sin1 = Math.Sin(p1);
+                        double a = 0, b = 0;
+                        find_center(ref a, ref b);
+                        transferalMatrix = new double[,] { {cos1, sin1, 0}, {-sin1, cos1, 0},
+                        {cos1*(-a)+b*sin1+a, (-a)*sin1-b*cos1+b, 1}};
+                    }
+                    break;
+                case "Масштабирование относительно заданной точки": //доделать!!!!
+                    if (!double.TryParse(textBox4.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Масштабирование относительно заданной точки";
+                        double cm1 = System.Convert.ToDouble(textBox4.Text);
+                        double c1 = System.Convert.ToDouble(textBox1.Text);
+                        double d1 = System.Convert.ToDouble(textBox2.Text);
+                        transferalMatrix = new double[3, 3] { { cm1, 0, 0 }, { 0, cm1, 0 }, { (1 - cm1) * c1, (1 - cm1) * d1, 1 } };
+                    }
+                    break;
+                case "Масштабирование относительно своего центра":
+                    if (!double.TryParse(textBox4.Text, out num1))
+                    {
+                        label1.Text = "Введено неверное число!";
+                        transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { 0, 0, 1.0 } };
+                    }
+                    else
+                    {
+                        label1.Text = "Масштабирование относительно своего центра";
+                        double cm = System.Convert.ToDouble(textBox4.Text);
+                        double a1 = 0, b1 = 0;
+                        find_center(ref a1, ref b1);
+                        transferalMatrix = new double[3, 3] { { cm, 0, 0 }, { 0, cm, 0 }, { (1 - cm) * a1, (1 - cm) * b1, 1 } };
+                    }
+                    break;
+                case "Поиск точки пересечения двух ребер":
+                    
+                    break;
+                case "Проверка принадлежности точки к полигону":
+                    
+                    break;
+                case "Определить положение точки относительно полигона":
+                    
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        //поиск центра полигона
+        private void find_center(ref double x, ref double y)
+        {
+
+            foreach (var c in poligon)
+            {
+                x += c.Item1;
+                y += c.Item2;
+            }
+
+            x /= poligon.Count;
+            y /= poligon.Count;
+        }
+        //очищает холст
+        private void ClearPictureBox() 
+        {
+            var g = Graphics.FromImage(pictureBox1.Image);
+            g.Clear(pictureBox1.BackColor);
+            pictureBox1.Image = pictureBox1.Image;
+        }
+        //кнопка применить
+        private void button2_Click(object sender, EventArgs e)
+        {
+            RealisationTask();
+            if (Matrix && poligon.Count() != 0)
+            {
+                List<Point> newpoligon = new List<Point>();
+                List<Tuple<double, double>> l1 = new List<Tuple<double, double>>();
+                foreach (Tuple<double, double> p in poligon)
+                {
+                    double[,] point = new double[,] { { p.Item1, p.Item2, 1.0 } };
+                    double[,] res = matrix_multiplication(point, transferalMatrix);
+                    l1.Add(Tuple.Create(res[0, 0], res[0, 1]));
+                    newpoligon.Add(new Point(Convert.ToInt32(Math.Round(res[0, 0])), Convert.ToInt32(Math.Round(res[0, 1]))));
+                }
+
+                ClearPictureBox();
+
+                poligon.Clear();
+
+                Point p1 = newpoligon.First();
+                poligon.Add(Tuple.Create(p1.X * 1.0, p1.Y * 1.0));
+                foreach (Point c in newpoligon)
+                {
+                    if (c != p1)
+                    {
+                        var g = Graphics.FromImage(bmp);
+                        Pen p = new Pen(Color.Black, 1);
+                        g.DrawLine(p, p1, c);
+                        p1 = c;
+                        p.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                poligon = l1;
+                pictureBox1.Image = bmp;
+            }
+        }
+        //кнопка очистить
+        private void button1_Click(object sender, EventArgs e) 
+        {
+            var g = Graphics.FromImage(pictureBox1.Image);
+            g.Clear(pictureBox1.BackColor);
+            pictureBox1.Image = pictureBox1.Image;
+            list.Clear();
+            poligon.Clear();
+            label5.Text = "Выберите действие";
+            comboBox1.SelectedItem = "Рисовать";
+            button2.Visible = false;
+        }
     }
 }
