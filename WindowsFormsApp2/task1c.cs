@@ -38,9 +38,10 @@ namespace WindowsFormsApp2
 
             Bitmap imageSource = new Bitmap(openFileDialog1.FileName, true);
             image = ResizeBitmap(imageSource, pictureBox1.Size.Width, pictureBox1.Size.Height);
+            //DrawBorder(image, Color.Black, 1);
 
             pictureBox1.Image = image;
-            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+           
 
         }
 
@@ -74,7 +75,7 @@ namespace WindowsFormsApp2
         private static int firstX;
         private static int firstY;
 
-        private void getRightBorder(int x, int y)
+       /* private void getRightBorder(int x, int y)
         {
             Color pixelColor = image.GetPixel(x, y);
             Color currColor = pixelColor;
@@ -92,6 +93,42 @@ namespace WindowsFormsApp2
             firstX = x - 1;
             firstY = y;
             //image.SetPixel(x - 1, y, myBorderColor);
+            label1.Text += "firstX = " + x + " firstY = " + y + "\n";
+            label1.Text += "CurrColor = " + currColor.ToString() + '\n';
+        }*/
+
+        private void getRightBorder(int x, int y)
+        {
+            if (x < 0 || x >= image.Width || y < 0 || y >= image.Height)
+                return; // Выход из метода, если начальные координаты вне изображения
+
+            Color pixelColor = image.GetPixel(x, y);
+            Color currColor = pixelColor;
+            innerColor = pixelColor;
+
+            myBorderColor = Color.FromArgb(255, 0, 0);
+            label1.Text += "CurrColor = " + currColor.ToString() + '\n';
+
+            while (colorsEqual(innerColor, currColor) && x < image.Width - 1) // Проверка, чтобы x не вышел за пределы ширины
+            {
+                x += 1;
+                if (x >= 0 && x < image.Width && y >= 0 && y < image.Height) // Проверка границ
+                {
+                    currColor = image.GetPixel(x, y);
+                }
+                else
+                {
+                    break; // Выход из цикла, если x или y выходят за границы
+                }
+            }
+
+            if (x < image.Width && y < image.Height) // Проверка на границы для безопасного доступа к пикселю
+            {
+                borderColor = image.GetPixel(x, y);
+                firstX = x - 1;
+                firstY = y;
+            }
+
             label1.Text += "firstX = " + x + " firstY = " + y + "\n";
             label1.Text += "CurrColor = " + currColor.ToString() + '\n';
         }
@@ -138,7 +175,9 @@ namespace WindowsFormsApp2
         private Color colorByDirection(int x, int y, int direction)
         {
             Tuple<int, int> t = moveByDirection(x, y, direction);
-            return image.GetPixel(t.Item1, t.Item2);
+            return (t.Item1 >= 0 && t.Item1 < image.Width && t.Item2 >= 0 && t.Item2 < image.Height)
+                ? image.GetPixel(t.Item1, t.Item2)
+                : Color.Empty;
         }
 
         private void getNextPixel(ref int x, ref int y, ref int whereBorder)
@@ -146,24 +185,18 @@ namespace WindowsFormsApp2
             if (x > 0 && x < image.Width && y > 0 && y < image.Height)
             {
                 int d = whereBorder;
-                while (colorsEqual(borderColor, colorByDirection(x, y, d)))
+                while (colorsEqual(borderColor, colorByDirection(x, y, d)) && d < 8)
+                {
                     d = (d + 2) % 8;
-                if (colorsEqual(borderColor, colorByDirection(x, y, (d - 1 + 8) % 8)))
-                {
-                    Tuple<int, int> t = moveByDirection(x, y, d);
-                    x = t.Item1;
-                    y = t.Item2;
-                    whereBorder = (d + 8 - 2) % 8;
                 }
-                else
-                {
-                    Tuple<int, int> t = moveByDirection(x, y, (d - 1 + 8) % 8);
-                    x = t.Item1;
-                    y = t.Item2;
-                    whereBorder = (d - 1 + 8 - 3) % 8;
-                }
+
+                Tuple<int, int> t = moveByDirection(x, y, (d - 1 + 8) % 8);
+                x = t.Item1;
+                y = t.Item2;
+                whereBorder = (d + 8 - 2) % 8;
             }
         }
+
 
         //LinkedList<Tuple<int, int>> points = new LinkedList<Tuple<int, int>>();
 
@@ -186,7 +219,10 @@ namespace WindowsFormsApp2
         {
             foreach (var t in points)
             {
-                image.SetPixel(t.Item1, t.Item2, myBorderColor);
+                if (t.Item1 >= 0 && t.Item1 < image.Width && t.Item2 >= 0 && t.Item2 < image.Height)
+                {
+                    image.SetPixel(t.Item1, t.Item2, myBorderColor);
+                }
             }
         }
 
@@ -208,12 +244,6 @@ namespace WindowsFormsApp2
             }
         }
 
-        //Возвращает список, соедержаций след элементы:
-        //  Значение Y и список из пар границ (x1, x2), 
-        //      где каждая пара границ получена из следующей последовательности пикселей: 
-        //      (x1, y), (x1+1, y), ... , (x2, y).
-        //      Из-за того, что одному Y может соответствовать не одна пара границ (x1, x2), а несколько,
-        //      был использован двусвязный список.
         private LinkedList<Tuple<int, LinkedList<Tuple<int, int>>>> getYandBorders(ref List<Tuple<int, int>> points)
         {
             LinkedList<Tuple<int, LinkedList<Tuple<int, int>>>> yBorders = new LinkedList<Tuple<int, LinkedList<Tuple<int, int>>>>();
@@ -258,7 +288,16 @@ namespace WindowsFormsApp2
             yBorders.AddLast(Tuple.Create(y, borders));
             return yBorders;
         }
-
+        /*private void DrawBorder(Bitmap bmp, Color color, int borderWidth)
+        {
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                using (Pen pen = new Pen(color, borderWidth))
+                {
+                    g.DrawRectangle(pen, 0, 0, bmp.Width - borderWidth, bmp.Height - borderWidth);
+                }
+            }
+        }*/
         private void yBordersToFile(ref LinkedList<Tuple<int, LinkedList<Tuple<int, int>>>> yBorders, string fname = "yBorders.txt")
         {
             using (System.IO.StreamWriter writetext = new System.IO.StreamWriter(fname))
