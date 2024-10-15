@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,14 +12,16 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace WindowsFormsApp3
-{
+{   
     public partial class Form1 : Form
     {
         Bitmap bmp;
         List<Tuple<double, double>> poligon = new List<Tuple<double, double>>(); //список точек для полигона
         List<Point> list = new List<Point>();
+        Point point_inside_polygon = new Point();
         bool Draw = true; //допустимо ли рисовать сейчас на picturebox
         bool Matrix; //преобразование с матрицей(true) или без(false). Используется для кнопки "применить"
+        bool DrawLine = false; //для рисования отрезков вне полигона
         double[,] transferalMatrix; //матрица преобразования
 
         public Form1()
@@ -55,6 +59,7 @@ namespace WindowsFormsApp3
                     Draw = true; //разрешаем рисовать
                     Matrix = true;//преобразование - матричное
                     DrawDot = false; //разрешаем рисовать только точку
+                    DrawLine = false;
                     break;
                 case "Поворот вокруг заданной точки":
                     label1.Text = str + "; Нарисуйте точку и введите угол поворота";
@@ -64,7 +69,8 @@ namespace WindowsFormsApp3
                     textBox2.Visible = true;
                     textBox3.Visible = true;
                     Matrix = true; 
-                    DrawDot = true; 
+                    DrawDot = true;
+                    DrawLine = false;
                     break;
                 case "Поворот вокруг своего центра":
                     label1.Text = str + "; Введите угол поворота";
@@ -73,6 +79,7 @@ namespace WindowsFormsApp3
                     Draw = false;
                     Matrix = true;
                     DrawDot = false;
+                    DrawLine = false;
                     break;
                 case "Масштабирование относительно заданной точки":
                     label1.Text = str + "; Нарисуйте точку";
@@ -83,6 +90,7 @@ namespace WindowsFormsApp3
                     Draw = true; 
                     Matrix = true;
                     DrawDot = true;
+                    DrawLine = false;
                     break;
                 case "Масштабирование относительно своего центра":
                     label1.Text = str;
@@ -91,25 +99,30 @@ namespace WindowsFormsApp3
                     Matrix = true;
                     Draw = false;
                     DrawDot = false;
+                    DrawLine = false;
                     break;
                 case "Поиск точки пересечения двух ребер":
                     label1.Text = str + "; Нарисуйте ребро";
                     Draw = true;
                     DrawDot = false;
+                    DrawLine = true;
                     break;
                 case "Проверка принадлежности точки к полигону":
                     label1.Text = "Проверка принадлежности точки к полигону; Нарисуйте точку";
-                    Draw = true;
-                    DrawDot = false;
+                    Draw = false;
+                    DrawDot = true;
+                    DrawLine = false;
                     break;
                 case "Определить положение точки относительно полигона":
                     label1.Text = "Определить положение точки относительно полигона; Нарисуйте точку";
                     Draw = true;
                     DrawDot = false;
+                    DrawLine = false;
                     break;
                 case "Рисовать":
                     Draw = true;
                     DrawDot = false;
+                    DrawLine = false;
                     break;
                 default:
                     break;
@@ -143,31 +156,66 @@ namespace WindowsFormsApp3
                 ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y, Color.Black);// рисуют точку
                 pictureBox1.Image = pictureBox1.Image;// 
                
-                if (!DrawDot) 
+                if (!DrawLine)
                 {
-                    list.Add(new Point(e.X, e.Y));
-                    poligon.Add(Tuple.Create(e.X * 1.0, e.Y * 1.0));
-                    Point start = list.First();
-                    foreach (var p in list)
+                    if (!DrawDot) 
                     {
-                        var pen = new Pen(Color.Black, 1);
-                        var g = Graphics.FromImage(pictureBox1.Image);
-                        g.DrawLine(pen, start, p);
-                        pen.Dispose();
-                        g.Dispose();
-                        pictureBox1.Image = pictureBox1.Image;
+                        list.Add(new Point(e.X, e.Y));
+                        poligon.Add(Tuple.Create(e.X * 1.0, e.Y * 1.0));
+                        Point start = list.First();
+                        foreach (var p in list)
+                        {
+                            var pen = new Pen(Color.Black, 1);
+                            var g = Graphics.FromImage(pictureBox1.Image);
+                            g.DrawLine(pen, start, p);
+                            pen.Dispose();
+                            g.Dispose();
+                            pictureBox1.Image = pictureBox1.Image;
 
-                        start = p;
+                            start = p;
+                        }
+                    }
+                    else //на случай когда нужно нарисовать только точку(по заданию)
+                    {
+                        textBox1.Text = e.X.ToString();
+                        textBox2.Text = e.Y.ToString();
+                    }
+                    //TODO
+                    //реализовать случай для разрешения рисования только! отрезка по примеру точки
+                }
+                else
+                {
+                    int counter = 0;
+                    list.Add(new Point(e.X, e.Y));
+                    Point prev = list.First();
+                    foreach (var curr in list)
+                    {
+                        if (counter % 2 == 1)
+                        {
+                            var pen = new Pen(Color.Black, 1);
+                            var g = Graphics.FromImage(pictureBox1.Image);
+                            g.DrawLine(pen, prev, curr);
+                            pen.Dispose();
+                            g.Dispose();
+                            pictureBox1.Image = pictureBox1.Image;
+                        }
+                        else
+                        {
+                            prev = curr;
+                        }
+                        counter++;
                     }
                 }
-                else //на случай когда нужно нарисовать только точку(по заданию)
-                {
-                    textBox1.Text = e.X.ToString();
-                    textBox2.Text = e.Y.ToString();
-                }
-                //TODO
-                //реализовать случай для разрешения рисования только! отрезка по примеру точки
             }
+            if (DrawDot)
+            {
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y, Color.Black);// рисуют точку
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X+1, e.Y, Color.Black);// рисуют точку
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y+1, Color.Black);// рисуют точку
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X+1, e.Y+1, Color.Black);// рисуют точку
+                point_inside_polygon = new Point(e.X, e.Y);
+            }
+
         }
 
         //перемножение матриц
@@ -274,10 +322,10 @@ namespace WindowsFormsApp3
                     }
                     break;
                 case "Поиск точки пересечения двух ребер":
-                    
+                    find_intersection(list[0], list[1], list[2], list[3]);
                     break;
                 case "Проверка принадлежности точки к полигону":
-                    
+                    check_point_inside(point_inside_polygon);
                     break;
                 case "Определить положение точки относительно полигона":
                     
@@ -287,6 +335,133 @@ namespace WindowsFormsApp3
 
             }
         }
+
+        private void galochka()
+        {
+            var pen = new Pen(Color.Green, 3);
+            var g = Graphics.FromImage(pictureBox1.Image);
+            Point prev = new Point(100, 100);
+            Point curr = new Point(250, 250);
+            g.DrawLine(pen, prev, curr);
+            prev = curr;
+            curr = new Point(450, 75);
+            g.DrawLine(pen, prev, curr);
+            pen.Dispose();
+            g.Dispose();
+            pictureBox1.Image = pictureBox1.Image;
+        }
+
+        private void krestik()
+        {
+            var pen = new Pen(Color.Red, 3);
+            var g = Graphics.FromImage(pictureBox1.Image);
+            Point prev = new Point(150, 100);
+            Point curr = new Point(300, 250);
+            g.DrawLine(pen, prev, curr);
+            prev = new Point(300, 100);
+            curr = new Point(150, 250);
+            g.DrawLine(pen, prev, curr);
+            pen.Dispose();
+            g.Dispose();
+            pictureBox1.Image = pictureBox1.Image;
+        }
+
+        //поиск координаты y по координате х на прямой
+        private double find_y(double x, Point start, Point last)
+        {
+            return ((x - start.X)/(last.X - start.X))*(last.Y - start.Y)+start.Y;
+        }
+
+        //поиск пересечения с визуализацией
+        private void find_intersection(Point p1_start, Point p1_last, Point p2_start, Point p2_last)
+        {
+            bool point_has_been_found = false;
+            double x_start = Math.Max(p1_start.X, p2_start.X);
+            double x_last = Math.Max(p1_last.X, p2_last.X);
+            for (int i = (int)x_start; i <= (int)x_last; i++)
+            {
+                double delta = Math.Abs(find_y(i, p1_start, p1_last) - find_y(i, p2_start, p2_last));
+                if (delta < 1)
+                {
+                    if (delta > Math.Abs(find_y(i + 1, p1_start, p1_last) - find_y(i + 1, p2_start, p2_last)))
+                        continue;
+                    else 
+                    {
+                        int y = (int)find_y(i, p1_start, p1_last);
+                        ((Bitmap)pictureBox1.Image).SetPixel(i, y, Color.Red);// рисуем точку
+                        ((Bitmap)pictureBox1.Image).SetPixel(i+1, y, Color.Red);// рисуем ещё точку
+                        ((Bitmap)pictureBox1.Image).SetPixel(i, y+1, Color.Red);// и ещё точку
+                        ((Bitmap)pictureBox1.Image).SetPixel(i+1, y+1, Color.Red);// и последнюю точку
+                        pictureBox1.Image = pictureBox1.Image;// 
+                        point_has_been_found = true;
+                        break;
+                    }
+                }
+                else
+                    continue;
+            }
+            if (!point_has_been_found)
+                krestik();
+        }
+
+        //поиск пересечения с возвратом точки
+        private bool check_intersection_point(Point p, Point start, Point final)
+        {
+            if (start.X > final.X)
+            {
+                Point buf = start;
+                start = final;
+                final = buf;
+            }
+            if ((p.Y > Math.Min(final.Y, start.Y)) && (p.Y < Math.Max(final.Y, start.Y)))
+            {
+                for (int x = Math.Max((int)start.X, p.X); x <= final.X; x++)
+                {
+                    double delta = Math.Abs(find_y(x, start, final) - p.Y);
+                    if (delta < 1)
+                    {
+                        if (delta > Math.Abs(find_y(x + 1, start, final) - p.Y))
+                            continue;
+                        else
+                            return true;
+                    }
+                    else
+                        continue;
+                }
+                return false;
+            }
+            else
+                return false;
+        }
+
+        //проверка нахождения точки внутри полигона
+        private void check_point_inside(Point p)
+        {
+            bool line_created = false;
+            Point prev = new Point((int)poligon[0].Item1, (int)poligon[0].Item2);
+            int counter = 0;
+            foreach (Tuple<double, double> curr_point in poligon)
+            {
+                if (!line_created)
+                {
+                    line_created = true;
+                }
+                else
+                {
+                    Point curr = new Point((int)curr_point.Item1, (int)curr_point.Item2);
+                    if (p.X < prev.X || p.X < curr.X)
+                        if (check_intersection_point(p, curr, prev))
+                            counter++;
+                
+                    prev = curr;
+                }
+            }
+            if (counter % 2 == 1)
+                galochka();
+            else
+                krestik();
+        }
+
         //поиск центра полигона
         private void find_center(ref double x, ref double y)
         {
