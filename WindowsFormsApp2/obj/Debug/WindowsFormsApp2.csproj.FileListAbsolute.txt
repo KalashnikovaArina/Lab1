@@ -43,3 +43,4 @@ C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\obj\Debug\WindowsForm
 C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe.config
 C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.exe
 C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp2\bin\Debug\WindowsFormsApp2.pdb
+D:\Lab2\WindowsFormsApp2\obj\Debug\WindowsFormsApp2.task1.resources
