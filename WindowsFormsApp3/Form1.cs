@@ -214,6 +214,7 @@ namespace WindowsFormsApp3
                 ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y+1, Color.Black);// рисуют точку
                 ((Bitmap)pictureBox1.Image).SetPixel(e.X+1, e.Y+1, Color.Black);// рисуют точку
                 point_inside_polygon = new Point(e.X, e.Y);
+                pictureBox1.Image = pictureBox1.Image;
             }
 
         }
@@ -344,7 +345,7 @@ namespace WindowsFormsApp3
             Point curr = new Point(250, 250);
             g.DrawLine(pen, prev, curr);
             prev = curr;
-            curr = new Point(450, 75);
+            curr = new Point(450, 50);
             g.DrawLine(pen, prev, curr);
             pen.Dispose();
             g.Dispose();
@@ -373,65 +374,92 @@ namespace WindowsFormsApp3
         }
 
         //поиск пересечения с визуализацией
-        private void find_intersection(Point p1_start, Point p1_last, Point p2_start, Point p2_last)
+        private void find_intersection(Point p1_st, Point p1_lst, Point p2_st, Point p2_lst)
         {
+            Point p1_start;
+            Point p1_last;
+            Point p2_start;
+            Point p2_last;
+
+            if (p1_lst.X < p1_st.X)
+            {
+                p1_start = new Point(p1_lst.X, p1_lst.Y);
+                p1_last = new Point(p1_st.X, p1_st.Y);
+            }
+            else
+            {
+                p1_start = new Point(p1_st.X, p1_st.Y);
+                p1_last = new Point(p1_lst.X, p1_lst.Y);
+            }
+            if (p2_lst.X < p2_st.X)
+            {
+                p2_start = new Point(p2_lst.X, p2_lst.Y);
+                p2_last = new Point(p2_st.X, p2_st.Y);
+            }
+            else
+            {
+                p2_start = new Point(p2_st.X, p2_st.Y);
+                p2_last = new Point(p2_lst.X, p2_lst.Y);
+            }
+
             bool point_has_been_found = false;
             double x_start = Math.Max(p1_start.X, p2_start.X);
-            double x_last = Math.Max(p1_last.X, p2_last.X);
-            for (int i = (int)x_start; i <= (int)x_last; i++)
+            double x_last = Math.Min(p1_last.X, p2_last.X);
+            if (x_start - x_last != 0)
             {
-                double delta = Math.Abs(find_y(i, p1_start, p1_last) - find_y(i, p2_start, p2_last));
-                if (delta < 1)
+                double h = (x_last - x_start)/2000;
+                double delta = Math.Abs(find_y(x_start, p1_start, p1_last) - find_y(x_start, p2_start, p2_last));
+                for (double i = x_start; i <= x_last; i+=h)
                 {
-                    if (delta > Math.Abs(find_y(i + 1, p1_start, p1_last) - find_y(i + 1, p2_start, p2_last)))
-                        continue;
-                    else 
+                    if (delta >= Math.Abs(find_y(i + h, p1_start, p1_last) - find_y(i + h, p2_start, p2_last)))
+                        delta = Math.Abs(find_y(i + h, p1_start, p1_last) - find_y(i + h, p2_start, p2_last));
+                    else if (delta < 1)
                     {
                         int y = (int)find_y(i, p1_start, p1_last);
-                        ((Bitmap)pictureBox1.Image).SetPixel(i, y, Color.Red);// рисуем точку
-                        ((Bitmap)pictureBox1.Image).SetPixel(i+1, y, Color.Red);// рисуем ещё точку
-                        ((Bitmap)pictureBox1.Image).SetPixel(i, y+1, Color.Red);// и ещё точку
-                        ((Bitmap)pictureBox1.Image).SetPixel(i+1, y+1, Color.Red);// и последнюю точку
+                        ((Bitmap)pictureBox1.Image).SetPixel((int)i, y, Color.Red);// рисуем точку
+                        ((Bitmap)pictureBox1.Image).SetPixel((int)i + 1, y, Color.Red);// рисуем ещё точку
+                        ((Bitmap)pictureBox1.Image).SetPixel((int)i, y + 1, Color.Red);// и ещё точку
+                        ((Bitmap)pictureBox1.Image).SetPixel((int)i + 1, y + 1, Color.Red);// и последнюю точку
                         pictureBox1.Image = pictureBox1.Image;// 
                         point_has_been_found = true;
                         break;
                     }
                 }
-                else
-                    continue;
+            }
+            else if (p1_start.X == p1_last.X)
+            {
+                int y = (int)find_y(x_start, p2_start, p2_last);
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start, y, Color.Red);// рисуем точку
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start + 1, y, Color.Red);// рисуем ещё точку
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start, y + 1, Color.Red);// и ещё точку
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start + 1, y + 1, Color.Red);// и последнюю точку
+                pictureBox1.Image = pictureBox1.Image;// 
+                point_has_been_found = true;
+            }
+            else
+            {
+                int y = (int)find_y(x_start, p1_start, p1_last);
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start, y, Color.Red);// рисуем точку
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start + 1, y, Color.Red);// рисуем ещё точку
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start, y + 1, Color.Red);// и ещё точку
+                ((Bitmap)pictureBox1.Image).SetPixel((int)x_start + 1, y + 1, Color.Red);// и последнюю точку
+                pictureBox1.Image = pictureBox1.Image;// 
+                point_has_been_found = true;
             }
             if (!point_has_been_found)
                 krestik();
         }
 
-        //поиск пересечения с возвратом точки
+        //поиск пересечения с возвратом точкиs
         private bool check_intersection_point(Point p, Point start, Point final)
         {
-            if (start.X > final.X)
-            {
-                Point buf = start;
-                start = final;
-                final = buf;
-            }
-            if ((p.Y > Math.Min(final.Y, start.Y)) && (p.Y < Math.Max(final.Y, start.Y)))
-            {
-                for (int x = Math.Max((int)start.X, p.X); x <= final.X; x++)
-                {
-                    double delta = Math.Abs(find_y(x, start, final) - p.Y);
-                    if (delta < 1)
-                    {
-                        if (delta > Math.Abs(find_y(x + 1, start, final) - p.Y))
-                            continue;
-                        else
-                            return true;
-                    }
-                    else
-                        continue;
-                }
-                return false;
-            }
-            else
-                return false;
+            Point p1_start;
+            Point p1_last;
+
+            if ((p.Y > Math.Min(start.Y, final.Y)) && (p.Y < Math.Max(start.Y, final.Y)))
+                return true;
+            else return false;
+            
         }
 
         //проверка нахождения точки внутри полигона
