@@ -29,7 +29,7 @@ namespace WindowsFormsApp2
         }
         private void button1c_Click(object sender, EventArgs e)
         {
-            task1c newForm = new task1c();
+            task1 newForm = new task1();
             newForm.Show();
         }
 
@@ -44,6 +44,7 @@ namespace WindowsFormsApp2
             task3 newForm = new task3();
             newForm.Show();
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {

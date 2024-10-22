@@ -58,7 +58,6 @@ namespace WindowsFormsApp2
                 right_b.X += 1;
         }
 
-        //проверяем цвета на равенство
         private bool equalColors(Color c1, Color c2)
         {
             return c1.R == c2.R && c1.G == c2.G && c1.B == c2.B;
@@ -97,7 +96,6 @@ namespace WindowsFormsApp2
             //если пиксель еще не был закрашен
             if (0 < p.X && p.X < b.Width && 0 < p.Y && p.Y < b.Height)// && equalColors(b.GetPixel(p.X, p.Y), c))
             {
-                // var g = Graphics.FromImage(b);
                 Point left_b = p, right_b = p;
                 find_borders(p, ref left_b, ref right_b, b, c); //поиск границ
                 if (left_b.X < left)
@@ -111,11 +109,6 @@ namespace WindowsFormsApp2
                     up = right_b.Y;
 
                 l.Add(Tuple.Create(left_b, right_b));
-                // Rectangle r = new Rectangle(left_b.X + 1, p.Y, right_b.X - left_b.X - 1, 1); 
-                // Bitmap line = back.Clone(r, back.PixelFormat); //копируем линию из заданного изображения
-
-                // g.DrawImage(line, r);
-                // pictureBox.Image = b;
 
                 for (int i = left_b.X + 1; i < right_b.X; ++i)
                     filling(new Point(i, p.Y + 1), c);
@@ -207,18 +200,6 @@ namespace WindowsFormsApp2
             res = res;
             return res;
         }
-
-       /* private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // task1b
-            // 
-            this.ClientSize = new System.Drawing.Size(618, 430);
-            this.Name = "task1b";
-            this.ResumeLayout(false);
-
-        }*/
 
         private void button2_Click(object sender, EventArgs e)
         {

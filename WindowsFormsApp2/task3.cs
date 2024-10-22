@@ -173,7 +173,7 @@ namespace WindowsFormsApp2
             // ограничение от 0 до 255
             r = MathExtensions.Clamp(r, 0, 255);
             g = MathExtensions.Clamp(g, 0, 255);
-            b = MathExtensions.Clamp(b1, 0, 255);
+            b1 = MathExtensions.Clamp(b1, 0, 255);
 
             return Color.FromArgb(r, g, b1);
         }
@@ -204,6 +204,7 @@ namespace WindowsFormsApp2
         {
             graphics.Clear(pictureBox1.BackColor);
             pictureBox1.Image = bitmap;
+            currentPointIndex = -1;
         }
     }
 }
