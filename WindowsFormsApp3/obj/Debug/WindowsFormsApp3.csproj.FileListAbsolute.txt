@@ -28,3 +28,14 @@ C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp3\obj\Debug\WindowsForm
 C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.exe
 C:\Users\User\Desktop\У(ч)ёба\Lab1_1\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.pdb
+D:\Lab2\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.exe.config
+D:\Lab2\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.exe
+D:\Lab2\WindowsFormsApp3\bin\Debug\WindowsFormsApp3.pdb
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.AssemblyReference.cache
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.SuggestedBindingRedirects.cache
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Form1.resources
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Properties.Resources.resources
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.GenerateResource.cache
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.csproj.CoreCompileInputs.cache
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.exe
+D:\Lab2\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.pdb

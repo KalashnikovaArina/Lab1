@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace WindowsFormsApp3
-{   
+{
     public partial class Form1 : Form
     {
         Bitmap bmp;
@@ -23,6 +23,10 @@ namespace WindowsFormsApp3
         bool Matrix; //преобразование с матрицей(true) или без(false). Используется для кнопки "применить"
         bool DrawLine = false; //для рисования отрезков вне полигона
         double[,] transferalMatrix; //матрица преобразования
+
+        private bool drawingEdge = false;
+        private bool checkingPoint = false;
+        private Point? edgeStartPoint = null;
 
         public Form1()
         {
@@ -42,11 +46,17 @@ namespace WindowsFormsApp3
         //Масштабирование относительно своего центра
         //Поиск точки пересечения двух ребер
         //Проверка принадлежит ли заданная пользователем(с помощью мыши) точка выпуклому и невыпуклому полигонам
-        //Классифицировать положение точки относительно ребра(справа или слева)
+
+        // Метод для проверки положения точки относительно ребра
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string str = comboBox1.SelectedItem.ToString();
             Hide_labels();
+
+            /*buttonDrawEdge.Visible = false;
+            buttonCheckPoint.Visible = false;*/
+
             switch (str)
             {
                 case "Смещение":
@@ -63,12 +73,12 @@ namespace WindowsFormsApp3
                     break;
                 case "Поворот вокруг заданной точки":
                     label1.Text = str + "; Нарисуйте точку и введите угол поворота";
-                    Draw = true; 
+                    Draw = true;
                     label7.Visible = true;
                     textBox1.Visible = true;
                     textBox2.Visible = true;
                     textBox3.Visible = true;
-                    Matrix = true; 
+                    Matrix = true;
                     DrawDot = true;
                     DrawLine = false;
                     break;
@@ -87,7 +97,7 @@ namespace WindowsFormsApp3
                     textBox1.Visible = true;
                     textBox2.Visible = true;
                     textBox4.Visible = true;
-                    Draw = true; 
+                    Draw = true;
                     Matrix = true;
                     DrawDot = true;
                     DrawLine = false;
@@ -109,15 +119,19 @@ namespace WindowsFormsApp3
                     break;
                 case "Проверка принадлежности точки к полигону":
                     label1.Text = "Проверка принадлежности точки к полигону; Нарисуйте точку";
+                    
                     Draw = false;
                     DrawDot = true;
                     DrawLine = false;
                     break;
-                case "Определить положение точки относительно полигона":
-                    label1.Text = "Определить положение точки относительно полигона; Нарисуйте точку";
-                    Draw = true;
+                case "Определить положение точки относительно ребра":
+                    label1.Text = "Определить положение точки относительно ребра; Нарисуйте ребро";
+                    buttonDrawEdge.Visible = true;
+                    buttonCheckPoint.Visible = true;
+                    Draw = false;
                     DrawDot = false;
                     DrawLine = false;
+                    button2.Visible = false;
                     break;
                 case "Рисовать":
                     Draw = true;
@@ -142,12 +156,86 @@ namespace WindowsFormsApp3
             textBox2.Visible = false;
             textBox3.Visible = false;
             textBox4.Visible = false;
+            buttonDrawEdge.Visible = false;
+            buttonCheckPoint.Visible = false;
+            button2.Visible= false;
             textBox1.Text = "";
             textBox2.Text = "";
             Draw = false;
         }
         //реализация рисования
         bool DrawDot = false;
+
+        private string ClassifyPointRelativeToEdge(Point edgeStart, Point edgeEnd, Point point)
+        {
+            // Вычисляем определитель для векторного произведения
+            double det = (edgeEnd.X - edgeStart.X) * (point.Y - edgeStart.Y) -
+                         (edgeEnd.Y - edgeStart.Y) * (point.X - edgeStart.X);
+
+            if (det > 0)
+                return "Точка находится слева от ребра.";
+            else if (det < 0)
+                return "Точка находится справа от ребра.";
+            else
+                return "Точка лежит на ребре.";
+        }
+        private void DrawEdge_Click(object sender, EventArgs e)
+        {
+            drawingEdge = DrawDot = true;
+            checkingPoint = false;
+            MessageBox.Show("Режим рисования ребра активирован. Выберите две точки.");
+        }
+
+        private void CheckPointPosition_Click(object sender, EventArgs e)
+        {
+            checkingPoint = DrawDot = true;
+            drawingEdge = false;
+            MessageBox.Show("Режим классификации точки активирован. Щелкните, чтобы выбрать точку.");
+        }
+        // Обработчик для классификации положения точки
+        // Обработчик события нажатия мыши
+        private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            
+            if (drawingEdge)
+            {
+                if (edgeStartPoint == null)
+                {
+                    edgeStartPoint = new Point(e.X, e.Y);
+                    list.Clear();  
+                    list.Add(edgeStartPoint.Value);  
+                }
+                else
+                {
+                    Point edgeEndPoint = new Point(e.X, e.Y);
+                    using (Graphics g = Graphics.FromImage(pictureBox1.Image))
+                    {
+                        g.DrawLine(Pens.Black, edgeStartPoint.Value, edgeEndPoint);
+                    }
+                    pictureBox1.Invalidate();  
+
+                    list.Add(edgeEndPoint);  
+                    edgeStartPoint = null;  
+                    drawingEdge = false;
+                }
+            }
+            else if (checkingPoint)
+            {
+                if (list.Count < 2)  
+                {
+                    MessageBox.Show("Сначала нарисуйте ребро.");
+                    return;
+                }
+
+                Point pointToCheck = new Point(e.X, e.Y);
+                Point edgeStart = list[0];  // Начальная точка ребра
+                Point edgeEnd = list[1];    // Конечная точка ребра
+
+                string result = ClassifyPointRelativeToEdge(edgeStart, edgeEnd, pointToCheck);
+                MessageBox.Show(result);
+                checkingPoint = false; 
+            }
+        }
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (Draw)
@@ -155,10 +243,10 @@ namespace WindowsFormsApp3
                 button2.Visible = true;
                 ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y, Color.Black);// рисуют точку
                 pictureBox1.Image = pictureBox1.Image;// 
-               
+
                 if (!DrawLine)
                 {
-                    if (!DrawDot) 
+                    if (!DrawDot)
                     {
                         list.Add(new Point(e.X, e.Y));
                         poligon.Add(Tuple.Create(e.X * 1.0, e.Y * 1.0));
@@ -210,9 +298,9 @@ namespace WindowsFormsApp3
             if (DrawDot)
             {
                 ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y, Color.Black);// рисуют точку
-                ((Bitmap)pictureBox1.Image).SetPixel(e.X+1, e.Y, Color.Black);// рисуют точку
-                ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y+1, Color.Black);// рисуют точку
-                ((Bitmap)pictureBox1.Image).SetPixel(e.X+1, e.Y+1, Color.Black);// рисуют точку
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X + 1, e.Y, Color.Black);// рисуют точку
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X, e.Y + 1, Color.Black);// рисуют точку
+                ((Bitmap)pictureBox1.Image).SetPixel(e.X + 1, e.Y + 1, Color.Black);// рисуют точку
                 point_inside_polygon = new Point(e.X, e.Y);
                 pictureBox1.Image = pictureBox1.Image;
             }
@@ -253,9 +341,9 @@ namespace WindowsFormsApp3
                         double tX = System.Convert.ToDouble(textBox1.Text);
                         double tY = System.Convert.ToDouble(textBox2.Text);
                         transferalMatrix = new double[,] { { 1.0, 0, 0 }, { 0, 1.0, 0 }, { tX, tY, 1.0 } };
-                    }    
+                    }
                     break;
-                    
+
                 case "Поворот вокруг заданной точки":
                     double c = System.Convert.ToDouble(textBox1.Text);
                     double d = System.Convert.ToDouble(textBox2.Text);
@@ -272,7 +360,7 @@ namespace WindowsFormsApp3
                         double sin = Math.Sin(p);
                         transferalMatrix = new double[,] { {cos, sin, 0}, {-sin, cos, 0},
                         {cos*(-c)+d*sin+c, (-c)*sin-d*cos+d, 1}};
-                    }    
+                    }
                     break;
                 case "Поворот вокруг своего центра":
                     if (!double.TryParse(textBox3.Text, out num1))
@@ -292,7 +380,7 @@ namespace WindowsFormsApp3
                         {cos1*(-a)+b*sin1+a, (-a)*sin1-b*cos1+b, 1}};
                     }
                     break;
-                case "Масштабирование относительно заданной точки": //доделать!!!!
+                case "Масштабирование относительно заданной точки": 
                     if (!double.TryParse(textBox4.Text, out num1))
                     {
                         label1.Text = "Введено неверное число!";
@@ -328,8 +416,8 @@ namespace WindowsFormsApp3
                 case "Проверка принадлежности точки к полигону":
                     check_point_inside(point_inside_polygon);
                     break;
-                case "Определить положение точки относительно полигона":
-                    
+                case "Определить положение точки относительно ребра":
+                 
                     break;
                 default:
                     break;
@@ -370,7 +458,7 @@ namespace WindowsFormsApp3
         //поиск координаты y по координате х на прямой
         private double find_y(double x, Point start, Point last)
         {
-            return ((x - start.X)/(last.X - start.X))*(last.Y - start.Y)+start.Y;
+            return ((x - start.X) / (last.X - start.X)) * (last.Y - start.Y) + start.Y;
         }
 
         //поиск пересечения с визуализацией
@@ -407,9 +495,9 @@ namespace WindowsFormsApp3
             double x_last = Math.Min(p1_last.X, p2_last.X);
             if (x_start - x_last != 0)
             {
-                double h = (x_last - x_start)/2000;
+                double h = (x_last - x_start) / 2000;
                 double delta = Math.Abs(find_y(x_start, p1_start, p1_last) - find_y(x_start, p2_start, p2_last));
-                for (double i = x_start; i <= x_last; i+=h)
+                for (double i = x_start; i <= x_last; i += h)
                 {
                     if (delta >= Math.Abs(find_y(i + h, p1_start, p1_last) - find_y(i + h, p2_start, p2_last)))
                         delta = Math.Abs(find_y(i + h, p1_start, p1_last) - find_y(i + h, p2_start, p2_last));
@@ -459,7 +547,7 @@ namespace WindowsFormsApp3
             if ((p.Y > Math.Min(start.Y, final.Y)) && (p.Y < Math.Max(start.Y, final.Y)))
                 return true;
             else return false;
-            
+
         }
 
         //проверка нахождения точки внутри полигона
@@ -480,7 +568,7 @@ namespace WindowsFormsApp3
                     if (p.X < prev.X || p.X < curr.X)
                         if (check_intersection_point(p, curr, prev))
                             counter++;
-                
+
                     prev = curr;
                 }
             }
@@ -504,7 +592,7 @@ namespace WindowsFormsApp3
             y /= poligon.Count;
         }
         //очищает холст
-        private void ClearPictureBox() 
+        private void ClearPictureBox()
         {
             var g = Graphics.FromImage(pictureBox1.Image);
             g.Clear(pictureBox1.BackColor);
@@ -550,7 +638,7 @@ namespace WindowsFormsApp3
             }
         }
         //кнопка очистить
-        private void button1_Click(object sender, EventArgs e) 
+        private void button1_Click(object sender, EventArgs e)
         {
             var g = Graphics.FromImage(pictureBox1.Image);
             g.Clear(pictureBox1.BackColor);
