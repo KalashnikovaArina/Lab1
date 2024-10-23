@@ -123,6 +123,7 @@ namespace WindowsFormsApp3
                 case "Проверка принадлежности точки к полигону":
                     label1.Text = "Проверка принадлежности точки к полигону; Нарисуйте точку";
                     button2.Visible = true;
+                    Matrix = false;
                     Draw = false;
                     DrawDot = true;
                     DrawLine = false;
@@ -541,16 +542,49 @@ namespace WindowsFormsApp3
                 krestik();
         }
 
-        //поиск пересечения с возвратом точкиs
+        //поиск пересечения с возвратом точки
         private bool check_intersection_point(Point p, Point start, Point final)
         {
-            Point p1_start;
-            Point p1_last;
+            Point p_st;
+            Point p_fin;
 
-            if ((p.Y > Math.Min(start.Y, final.Y)) && (p.Y < Math.Max(start.Y, final.Y)))
-                return true;
-            else return false;
+            if (start.X > final.X)
+            {
+                p_st = new Point(final.X, final.Y);
+                p_fin = new Point(start.X, start.Y);
+            }
+            else
+            {
+                p_st = new Point(start.X, start.Y);
+                p_fin = new Point(final.X, final.Y);
+            }
 
+            if (p.X <= p_fin.X)
+            {
+                double x_start = Math.Max(p_st.X, p.X);
+                if (x_start - p_fin.X != 0)
+                {
+                    double h = (p_fin.X - x_start) / 2000;
+                    double delta = Math.Abs(find_y(x_start, p_st, p_fin) - p.Y);
+                    for (double i = x_start; i <= p_fin.X; i += h)
+                    {
+                        if (delta >= Math.Abs(find_y(i + h, p_st, p_fin) - p.Y))
+                            delta = Math.Abs(find_y(i + h, p_st, p_fin) - p.Y);
+                        else if (delta < 1)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (p_st.X == p_fin.X)
+                {
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+            return false;
         }
 
         //проверка нахождения точки внутри полигона
@@ -568,7 +602,9 @@ namespace WindowsFormsApp3
                 else
                 {
                     Point curr = new Point((int)curr_point.Item1, (int)curr_point.Item2);
-                    if (p.X < prev.X || p.X < curr.X)
+                    if (p.Y == Math.Min(prev.Y, curr.Y))
+                        counter++;
+                    else if ((p.Y < Math.Max(prev.Y, curr.Y)) && (p.Y > Math.Min(curr.X, prev.Y)))
                         if (check_intersection_point(p, curr, prev))
                             counter++;
 
