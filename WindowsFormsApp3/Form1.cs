@@ -70,6 +70,7 @@ namespace WindowsFormsApp3
                     Matrix = true;//преобразование - матричное
                     DrawDot = false; //разрешаем рисовать только точку
                     DrawLine = false;
+                    button2.Visible = true;
                     break;
                 case "Поворот вокруг заданной точки":
                     label1.Text = str + "; Нарисуйте точку и введите угол поворота";
@@ -90,6 +91,7 @@ namespace WindowsFormsApp3
                     Matrix = true;
                     DrawDot = false;
                     DrawLine = false;
+                    button2.Visible = true;
                     break;
                 case "Масштабирование относительно заданной точки":
                     label1.Text = str + "; Нарисуйте точку";
@@ -110,6 +112,7 @@ namespace WindowsFormsApp3
                     Draw = false;
                     DrawDot = false;
                     DrawLine = false;
+                    button2.Visible = true;
                     break;
                 case "Поиск точки пересечения двух ребер":
                     label1.Text = str + "; Нарисуйте ребро";
@@ -119,7 +122,7 @@ namespace WindowsFormsApp3
                     break;
                 case "Проверка принадлежности точки к полигону":
                     label1.Text = "Проверка принадлежности точки к полигону; Нарисуйте точку";
-                    
+                    button2.Visible = true;
                     Draw = false;
                     DrawDot = true;
                     DrawLine = false;
